@@ -1,0 +1,5 @@
+[tasks.new]
+run = "go run ./src/cmd/new-article/main.go"
+
+[tools]
+go = "1.26.5"

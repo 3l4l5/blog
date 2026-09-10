@@ -1,4 +1,4 @@
-package main
+package newarticle
 
 import (
 	"crypto/rand"
@@ -61,7 +61,7 @@ func createArticleTemplate() (string, error) {
 	return content, nil
 }
 
-func main() {
+func CreateNewArticle() {
 	targetPath := createDatePath()
 	articleId := createArticleId()
 	articleDirPath := filepath.Join(targetPath, articleId)

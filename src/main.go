@@ -15,11 +15,9 @@ func main() {
 
 	if len(args) != 2 {
 		log.Fatal(errors.New("args length must be 1."))
-	}
-	if args[1] == "newarticle" {
+	} else if args[1] == "newarticle" {
 		newarticle.CreateNewArticle()
-	}
-	if args[1] == "build" {
+	} else if args[1] == "build" {
 		converter.ConvertMarkdownToHtml()
 	} else {
 		log.Fatal("invalid option")

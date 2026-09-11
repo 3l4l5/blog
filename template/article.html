@@ -2,8 +2,25 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="/assets/style.css">
     </head>
     <body>
-        {{ .Content }}
+        <div>
+            <div>
+                <h1>{{ .Title }}</h1>
+            </div>
+            <div>
+                <p> {{ .Date }}</p>
+            </div>
+            <div>
+                {{ range .Tags }}
+                <li class="border-white"> {{ . }}</li>
+                {{ end }}
+            </div>
+            
+        </div>
+        <div>
+            {{ .Content }}
+        </div>
     </body>
 </html>

@@ -47,10 +47,17 @@ func GetArticles(paths []string, parser func([]byte) (string, error)) ([]core.Ar
 
 		var buf bytes.Buffer
 
+		y, m, d := metadata.Date.Date()
 		data := struct {
+			Title   string
 			Content template.HTML
+			Tags    []string
+			Date    string
 		}{
+			Title:   metadata.Title,
 			Content: template.HTML(body),
+			Tags:    metadata.Tags,
+			Date:    fmt.Sprintf("%d/%d/%d", y, m, d),
 		}
 		if err := tmpl.Execute(&buf, data); err != nil {
 			panic(err)

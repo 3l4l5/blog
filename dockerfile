@@ -12,12 +12,22 @@ COPY articles ./articles/
 RUN go build -o main ./src/
 RUN ./main build
 
+FROM node:26-alpine3.23 AS tailwind
+
+WORKDIR /app
+COPY package.json package-lock.json ./
+COPY assets/ ./assets
+COPY --from=builder /app/dist ./dist
+RUN npm ci
+RUN npx @tailwindcss/cli \
+  -i ./assets/input.css \
+  -o ./dist/assets/style.css
 
 FROM nginx:1.31.5
 
 COPY nginx.conf .
 
-COPY --from=builder /app/dist /usr/share/nginx/html/
+COPY --from=tailwind /app/dist /usr/share/nginx/html/
 
 
 

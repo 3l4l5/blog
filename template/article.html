@@ -5,22 +5,31 @@
         <link rel="stylesheet" href="/assets/style.css">
     </head>
     <body>
-        <div>
+        <div class="m-3">
             <div>
-                <h1>{{ .Title }}</h1>
+                <div class="text-zinc-600 text-sm">
+                    <p> {{ .Date }}</p>
+                </div>
+                <div class="font-bold text-3xl">
+                    <h1 class="">{{ .Title }}</h1>
+                </div>
             </div>
-            <div>
-                <p> {{ .Date }}</p>
+
+            <!-- ブログ本文 -->
+            <div class="py-5">
+                <article class="prose">
+                    {{ .Content }}
+                </article>
             </div>
-            <div>
-                {{ range .Tags }}
-                <li class="border-white"> {{ . }}</li>
-                {{ end }}
+            <div class="pt-5">
+                <hr class="h-px my-8"/>
+                <p class="text-zinc-600 text-sm">タグ: </p>
+                <div class="flex pb-5 pt-2">
+                    {{ range .Tags }}
+                    <div class="p-1 px-2 mx-1 border-black rounded-sm border text-sm">{{ . }}</div>
+                    {{ end }}
+                </div>
             </div>
-            
-        </div>
-        <div>
-            {{ .Content }}
         </div>
     </body>
 </html>

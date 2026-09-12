@@ -13,3 +13,9 @@ mise run new
 ```sh
 mise run build
 ```
+
+## start server to debug
+
+```sh
+mise run debug
+```

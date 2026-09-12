@@ -4,5 +4,8 @@ run = "go run ./src/main.go newarticle"
 [tasks.build]
 run = "go run ./src/main.go build"
 
+[tasks.debug]
+run = "docker run --rm -p 8080:80 -v \"$PWD/dist:/usr/share/nginx/html:ro\" nginx:alpine"
+
 [tools]
 go = "1.26.5"

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/assets/style.css">
+    </head>
+    <body>
+        <h1 class="text-3xl font-bold">オクラのホームページへようこそ</h1>
+        <div class="pt-3">
+        {{ range .Articles}}
+            <div>
+                <div>{{ .Date }}</div> 
+                <div class="underline text-blue-600"><a href="{{ .Path }}">{{ .Title }}</a></div>
+            </div>
+        {{ end }}
+        </div>
+    </body>
+</html>

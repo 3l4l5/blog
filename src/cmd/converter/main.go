@@ -56,17 +56,15 @@ func ConvertMarkdownToHtml() {
 	}
 
 	var pages []core.PageInterface
-	// tagIndexPages, err := helpers.GenerateTagIndexPage(articles)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
+	topPage, err := helpers.GenerateTopPage(articles)
+	if err != nil {
+		log.Fatal(err)
+	}
+	pages = append(pages, &topPage)
 
 	for _, articlePage := range articles {
 		pages = append(pages, &articlePage)
 	}
-	// for _, tagIndexPage := range tagIndexPages {
-	// 	pages = append(pages, &tagIndexPage)
-	// }
 
 	filteredPages := filterTargetArticle(pages)
 

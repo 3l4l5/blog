@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"html/template"
+	"sort"
 
 	"github.com/3l4l5/blog/src/cmd/converter/core"
 )
@@ -20,6 +21,7 @@ func GenerateTopPage(articles []core.ArticlePage) (core.TopPage, error) {
 		Date        string
 	}
 	dataList := []articlesData{}
+	sort.Slice(articles, func(i, j int) bool { return articles[i].Metadata.Date.After(articles[j].Metadata.Date) })
 	for _, article := range articles {
 		y, m, d := article.Metadata.Date.Date()
 		dataList = append(dataList, articlesData{

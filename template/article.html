@@ -1,38 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta property="og:title" content="オクラブログ: {{ .Title }}">
-        <link rel="stylesheet" href="/assets/style.css">
-    </head>
-    <body>
-        <div class="m-3">
-            <div class="text-zinc-600 text-s mb-4 underline"><a href="/"> ＜ topへ戻る</a></div>
-            <div>
-                <div class="text-zinc-600 text-sm">
-                    <p> {{ .Date }}</p>
-                </div>
-                <div class="font-bold text-3xl">
-                    <h1 class="">{{ .Title }}</h1>
-                </div>
-            </div>
-
-            <!-- ブログ本文 -->
-            <div class="py-5">
-                <article class="prose">
-                    {{ .Content }}
-                </article>
-            </div>
-            <div class="pt-5">
-                <hr class="h-px my-8"/>
-                <p class="text-zinc-600 text-sm">タグ: </p>
-                <div class="flex pb-5 pt-2">
-                    {{ range .Tags }}
-                    <div class="p-1 px-2 mx-1 border-black rounded-sm border text-sm">{{ . }}</div>
-                    {{ end }}
-                </div>
-                <div class="text-zinc-600 text-s mb-4 underline"><a href="/"> ＜ topへ戻る</a></div>
-            </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta property="og:title" content="オクラブログ: {{ .Title }}" />
+    <link rel="stylesheet" href="/assets/style.css" />
+  </head>
+  <body>
+    <div class="m-3">
+      <div class="text-zinc-600 text-s mb-4 underline">
+        <a href="/"> ＜ topへ戻る</a>
+      </div>
+      <div>
+        <div class="text-zinc-600 text-sm">
+          <p>{{ .Date }}</p>
         </div>
-    </body>
+        <div class="font-bold text-3xl">
+          <h1 class="">{{ .Title }}</h1>
+        </div>
+      </div>
+
+      <!-- ブログ本文 -->
+      <div class="py-5">
+        <article class="prose">{{ .Content }}</article>
+      </div>
+      <div class="pt-5">
+        <hr class="h-px my-8" />
+        <p class="text-zinc-600 text-sm">タグ:</p>
+        <div class="flex pb-5 pt-2">
+          {{ range .Tags }}
+          <div class="p-1 px-2 mx-1 border-black rounded-sm border text-sm">
+            {{ . }}
+          </div>
+          {{ end }}
+        </div>
+        <div class="text-zinc-600 text-s mb-4 underline">
+          <a href="/"> ＜ topへ戻る</a>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

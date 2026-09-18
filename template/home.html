@@ -1,18 +1,53 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="/assets/style.css">
-    </head>
-    <body>
-        <h1 class="text-3xl font-bold">☆★オクラのホームページへようこそ★☆</h1>
-        <div class="pt-3">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/assets/style.css" />
+  </head>
+  <body>
+    <div>
+      <h1 class="text-3xl font-bold">オクラのホームページ</h1>
+    </div>
+    <div class="pt-2">
+      <h2 class="text-xl font-bold">Profile</h2>
+    </div>
+    <div class="flex py-2">
+      <div class="p-4">
+        <img
+          class="w-24 h-24 rounded-full object-cover"
+          src="https://pbs.twimg.com/profile_images/2031758129734803456/IHBZ_mkL_400x400.jpg"
+        />
+      </div>
+      <div>
+        <p>なまえ: Ryusei Ohkura</p>
+        <p>お仕事: ソフトウェアエンジニア</p>
+        <p class="underline text-blue-600">
+          <a href="https://x.com/3l4I5" target="_blank">🪿Twitter</a>
+        </p>
+        <p class="underline text-blue-600">
+          <a href="https://github.com/3l4l5" target="_blank">🐈GitHub</a>
+        </p>
+        <p class="underline text-blue-600">
+          <a href="https://speakerdeck.com/3l4l5" target="_blank"
+            >🪧Speaker Deck</a
+          >
+        </p>
+      </div>
+    </div>
+    <div class="pt-2">
+      <div>
+        <h2 class="text-xl font-bold">Blogs</h2>
+      </div>
+      <div class="pt-3">
         {{ range .Articles}}
-            <div>
-                <div>{{ .Date }}</div> 
-                <div class="underline text-blue-600"><a href="{{ .Path }}">{{ .Title }}</a></div>
-            </div>
-        {{ end }}
+        <div>
+          <div>{{ .Date }}</div>
+          <div class="underline text-blue-600">
+            <a href="{{ .Path }}">{{ .Title }}</a>
+          </div>
         </div>
-    </body>
+        {{ end }}
+      </div>
+    </div>
+  </body>
 </html>

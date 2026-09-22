@@ -1,6 +1,6 @@
 module github.com/3l4l5/blog
 
-go 1.25.2
+go 1.26.0
 
 require (
 	github.com/BurntSushi/toml v1.5.0 // indirect

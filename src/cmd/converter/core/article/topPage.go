@@ -1,4 +1,4 @@
-package core
+package article
 
 type TopPage struct {
 	Content HtmlString

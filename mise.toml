@@ -9,3 +9,7 @@ run = "docker run --rm -p 8080:80 -v \"$PWD/dist:/usr/share/nginx/html:ro\" ngin
 
 [tools]
 go = "1.26.5"
+
+
+[env]
+_.file = "env/.env"

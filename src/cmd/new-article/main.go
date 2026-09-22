@@ -20,7 +20,12 @@ func createDatePath() string {
 	articleDir := "articles"
 	now := time.Now()
 	year, month, date := now.Date()
-	path := filepath.Join(articleDir, strconv.Itoa(year), strconv.Itoa(int(month)), strconv.Itoa(date))
+	path := filepath.Join(
+		articleDir,
+		strconv.Itoa(year),
+		fmt.Sprintf("%02d", int(month)),
+		fmt.Sprintf("%02d", date),
+	)
 	return path
 }
 

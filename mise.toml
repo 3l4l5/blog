@@ -4,6 +4,9 @@ run = "go run ./src/main.go newarticle"
 [tasks.build]
 run = "go run ./src/main.go build && npx @tailwindcss/cli -i ./assets/input.css -o ./dist/assets/style.css"
 
+[tasks.publish]
+run = "go run ./src/main.go publish && npx @tailwindcss/cli -i ./assets/input.css -o ./dist/assets/style.css"
+
 [tasks.debug]
 run = "docker run --rm -p 8080:80 -v \"$PWD/dist:/usr/share/nginx/html:ro\" nginx:alpine"
 

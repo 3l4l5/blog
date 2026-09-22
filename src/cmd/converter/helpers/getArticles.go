@@ -8,14 +8,17 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/3l4l5/blog/src/cmd/converter/core"
+	"github.com/3l4l5/blog/src/cmd/converter/core/article"
 	"github.com/3l4l5/blog/src/lib"
+	"github.com/yuin/goldmark"
+	"github.com/yuin/goldmark/parser"
+	"go.abhg.dev/goldmark/frontmatter"
 )
 
 const articleTemplate = "template/article.html"
 
-func GetArticles(paths []string, parser func([]byte) (string, error)) ([]core.ArticlePage, []error) {
-	files := make([]core.ArticlePage, len(paths))
+func GetArticles(paths []string, parser func([]byte) (string, error)) ([]article.ArticlePage, []error) {
+	files := make([]article.ArticlePage, len(paths))
 	errCh := make(chan error, len(paths))
 
 	var wg sync.WaitGroup
@@ -63,11 +66,11 @@ func GetArticles(paths []string, parser func([]byte) (string, error)) ([]core.Ar
 			panic(err)
 		}
 
-		id := filepath.Dir(path)
+		id := filepath.Base(filepath.Dir(path))
 
-		article := core.ArticlePage{
+		article := article.ArticlePage{
 			ID:       id,
-			Content:  core.HtmlString(buf.String()),
+			Content:  article.HtmlString(buf.String()),
 			Metadata: metadata,
 		}
 		files[index] = article
@@ -96,4 +99,23 @@ func removeMeatadata(body string) (string, error) {
 
 	result := strings.TrimPrefix(parts[2], "\n")
 	return result, nil
+}
+
+func GetMetadataFromMarkdown(content string) (lib.ArticleMetaData, error) {
+	md := goldmark.New(
+		goldmark.WithExtensions(
+			&frontmatter.Extender{},
+		),
+	)
+
+	var buf bytes.Buffer
+	ctx := parser.NewContext()
+	if err := md.Convert([]byte(content), &buf, parser.WithContext(ctx)); err != nil {
+		return lib.ArticleMetaData{}, err
+	}
+	var metadata lib.ArticleMetaData
+	if err := frontmatter.Get(ctx).Decode(&metadata); err != nil {
+		return lib.ArticleMetaData{}, err
+	}
+	return metadata, nil
 }

@@ -8,13 +8,59 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/3l4l5/blog/src/cmd/converter/core"
+	"github.com/3l4l5/blog/src/cmd/converter/core/article"
 	"github.com/3l4l5/blog/src/cmd/converter/helpers"
 	"github.com/yuin/goldmark"
 )
 
 const root = "articles"
 const distDir = "dist/"
+
+func ConvertMarkdownToHtml(imageUploader helpers.ImageUploader) {
+	markdownArticlePaths, err := getMarkdownArticlePaths(root)
+	if err != nil {
+		log.Fatal(err)
+	}
+	articles, errs := helpers.GetArticles(markdownArticlePaths, parseMarkdownToHtml)
+	if len(errs) > 0 {
+		for _, err := range errs {
+			log.Println(err)
+		}
+		os.Exit(1)
+	}
+
+	images, err := helpers.GetImages()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	imageUploaded, err := imageUploader(images)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	articleImageReplaced, err := helpers.ReplaceImagePath(imageUploaded, articles)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var pages []article.PageInterface
+	topPage, err := helpers.GenerateTopPage(articleImageReplaced)
+	if err != nil {
+		log.Fatal(err)
+	}
+	pages = append(pages, &topPage)
+
+	for _, articlePage := range articleImageReplaced {
+		pages = append(pages, &articlePage)
+	}
+	filteredPages := filterTargetArticle(pages)
+
+	err = saveToDist(filteredPages)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
 
 func getMarkdownArticlePaths(root string) ([]string, error) {
 	var files []string
@@ -42,40 +88,8 @@ func parseMarkdownToHtml(data []byte) (string, error) {
 	return buf.String(), nil
 }
 
-func ConvertMarkdownToHtml() {
-	markdownArticlePaths, err := getMarkdownArticlePaths(root)
-	if err != nil {
-		log.Fatal(err)
-	}
-	articles, errs := helpers.GetArticles(markdownArticlePaths, parseMarkdownToHtml)
-	if len(errs) > 0 {
-		for _, err := range errs {
-			log.Println(err)
-		}
-		os.Exit(1)
-	}
-
-	var pages []core.PageInterface
-	topPage, err := helpers.GenerateTopPage(articles)
-	if err != nil {
-		log.Fatal(err)
-	}
-	pages = append(pages, &topPage)
-
-	for _, articlePage := range articles {
-		pages = append(pages, &articlePage)
-	}
-
-	filteredPages := filterTargetArticle(pages)
-
-	err = saveToDist(filteredPages)
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
-func filterTargetArticle(pages []core.PageInterface) []core.PageInterface {
-	buf := []core.PageInterface{}
+func filterTargetArticle(pages []article.PageInterface) []article.PageInterface {
+	buf := []article.PageInterface{}
 	for _, page := range pages {
 		if page.IsPublish() {
 			buf = append(buf, page)
@@ -84,7 +98,7 @@ func filterTargetArticle(pages []core.PageInterface) []core.PageInterface {
 	return buf
 }
 
-func saveToDist(pages []core.PageInterface) error {
+func saveToDist(pages []article.PageInterface) error {
 	if len(pages) <= 0 {
 		log.Print("No pages")
 		return nil
@@ -115,8 +129,4 @@ func saveToDist(pages []core.PageInterface) error {
 		fmt.Printf("%d bytes written", n)
 	}
 	return nil
-	// for _, page := range pages {
-	// 	page.GetPath()
-	// 	page.GetContent()
-	// }
 }

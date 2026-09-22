@@ -6,12 +6,12 @@ import (
 	"html/template"
 	"sort"
 
-	"github.com/3l4l5/blog/src/cmd/converter/core"
+	"github.com/3l4l5/blog/src/cmd/converter/core/article"
 )
 
 const topPageTemplatePath = "./template/home.html"
 
-func GenerateTopPage(articles []core.ArticlePage) (core.TopPage, error) {
+func GenerateTopPage(articles []article.ArticlePageImageReplaced) (article.TopPage, error) {
 	tmpl := template.Must(template.ParseFiles(topPageTemplatePath))
 
 	type articlesData struct {
@@ -41,7 +41,7 @@ func GenerateTopPage(articles []core.ArticlePage) (core.TopPage, error) {
 	if err := tmpl.Execute(&buf, data); err != nil {
 		panic(err)
 	}
-	return core.TopPage{
-		Content: core.HtmlString(buf.String()),
+	return article.TopPage{
+		Content: article.HtmlString(buf.String()),
 	}, nil
 }

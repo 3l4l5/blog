@@ -4,22 +4,22 @@ import (
 	"bytes"
 	"html/template"
 
-	"github.com/3l4l5/blog/src/cmd/converter/core"
+	"github.com/3l4l5/blog/src/cmd/converter/core/article"
 	"github.com/3l4l5/blog/src/lib"
 )
 
 const tagPageTemplatePath = "template/tagIndexPage.html"
 
-func GenerateTagIndexPage(articles []core.ArticlePage) ([]core.TagIndexPage, error) {
+func GenerateTagIndexPage(articles []article.ArticlePageImageReplaced) ([]article.TagIndexPage, error) {
 
-	articleByTag := make(map[string][]core.ArticlePage)
+	articleByTag := make(map[string][]article.ArticlePageImageReplaced)
 	for _, article := range articles {
 		for _, tag := range article.Metadata.Tags {
 			articleByTag[tag] = append(articleByTag[tag], article)
 		}
 	}
 
-	var tagPages []core.TagIndexPage
+	var tagPages []article.TagIndexPage
 	for tagName, articles := range articleByTag {
 		var pageInfos []PageInfo
 		for _, article := range articles {
@@ -30,11 +30,11 @@ func GenerateTagIndexPage(articles []core.ArticlePage) ([]core.TagIndexPage, err
 		}
 		content, err := applyTemplate(pageInfos)
 		if err != nil {
-			return []core.TagIndexPage{}, err
+			return []article.TagIndexPage{}, err
 		}
-		tagPages = append(tagPages, core.TagIndexPage{
+		tagPages = append(tagPages, article.TagIndexPage{
 			TagName: tagName,
-			Body:    core.HtmlString(content),
+			Body:    article.HtmlString(content),
 		})
 	}
 

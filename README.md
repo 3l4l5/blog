@@ -21,3 +21,12 @@ mise run build
 ```sh
 mise run debug
 ```
+
+## カテゴリについて
+
+カテゴリは以下
+
+- life: 私生活について
+- report: 参加メモなど
+- tech: 技術的な記事
+

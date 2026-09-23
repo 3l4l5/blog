@@ -2,7 +2,7 @@
 title: ブログに画像を貼れるようにしてみた
 date: 2026-09-22T22:34:55.813469+09:00
 description: ""
-categories: tech
+categories: life
 tagas:
     - ブログ
 publish: true

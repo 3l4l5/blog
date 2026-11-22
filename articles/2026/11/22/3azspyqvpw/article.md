@@ -8,8 +8,6 @@ tagas:
 publish: true
 ---
 
-# 2026/11/22 勉強したことメモ（Transactionとかギャップロックとか）
-
 ## RDBMSのTransactionについて復習
 
 DBがデータの信頼性と整合性を保証するための重要な特性であるACID（Atomicity, Consistency, Isolation, Durability）特性を担保するために、Transaction処理がある。

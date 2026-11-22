@@ -11,6 +11,7 @@ import (
 	"github.com/3l4l5/blog/src/cmd/converter/core/article"
 	"github.com/3l4l5/blog/src/lib"
 	"github.com/yuin/goldmark"
+	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/parser"
 	"go.abhg.dev/goldmark/frontmatter"
 )
@@ -105,6 +106,7 @@ func GetMetadataFromMarkdown(content string) (lib.ArticleMetaData, error) {
 	md := goldmark.New(
 		goldmark.WithExtensions(
 			&frontmatter.Extender{},
+			extension.Table,
 		),
 	)
 

@@ -6,7 +6,7 @@ categories: tech
 tagas:
     - kubernetes
     - argocd
-publish: false
+publish: true
 ---
 
 ## argocd App of Apps

@@ -5,7 +5,7 @@ description: ""
 categories: tech
 tagas:
     - ansible
-publish: false
+publish: true
 ---
 
 ## ansible

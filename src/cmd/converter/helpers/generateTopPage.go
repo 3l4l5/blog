@@ -7,6 +7,7 @@ import (
 	"sort"
 
 	"github.com/3l4l5/blog/src/cmd/converter/core/article"
+	"github.com/google/uuid"
 )
 
 const topPageTemplatePath = "./template/home.html"
@@ -34,10 +35,13 @@ func GenerateTopPage(articles []article.ArticlePageImageReplaced) (article.TopPa
 		})
 		article.GetPath()
 	}
+	id, _ := uuid.NewV7()
 	data := struct {
 		Articles []articlesData
+		BuildId  string
 	}{
 		Articles: dataList,
+		BuildId:  id.String(),
 	}
 	var buf bytes.Buffer
 	if err := tmpl.Execute(&buf, data); err != nil {

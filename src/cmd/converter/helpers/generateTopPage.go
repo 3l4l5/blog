@@ -19,6 +19,7 @@ func GenerateTopPage(articles []article.ArticlePageImageReplaced) (article.TopPa
 		Description string
 		Path        string
 		Date        string
+		Tags        []string
 	}
 	dataList := []articlesData{}
 	sort.Slice(articles, func(i, j int) bool { return articles[i].Metadata.Date.After(articles[j].Metadata.Date) })
@@ -29,6 +30,7 @@ func GenerateTopPage(articles []article.ArticlePageImageReplaced) (article.TopPa
 			Description: article.Metadata.Description,
 			Date:        fmt.Sprintf("%d/%d/%d", y, m, d),
 			Path:        article.GetPath(),
+			Tags:        article.Metadata.Tags,
 		})
 		article.GetPath()
 	}

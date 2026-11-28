@@ -8,53 +8,65 @@
     />
     <meta name="robots" content="index, follow" />
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="/assets/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/assets/style.css" />
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="オクラのホームページ">
     <link rel="icon" href="/assets/favicon.ico">
+
   </head>
   <body>
-    <div>
-      <h1 class="text-3xl font-bold">オクラのホームページ</h1>
-    </div>
-    <div class="pt-2">
-      <h2 class="text-xl font-bold">Profile</h2>
-    </div>
-    <div class="flex flex-col sm:flex-row py-2">
-      <div class="p-4">
-        <img
-          class="w-24 h-24 rounded-full object-cover"
-          src="https://pbs.twimg.com/profile_images/2031758129734803456/IHBZ_mkL_400x400.jpg"
-        />
-      </div>
+    <div class="p-2">
       <div>
-        <p>なまえ: Ryusei Ohkura</p>
-        <p>お仕事: ソフトウェアエンジニア</p>
-        <p class="underline text-blue-600">
-          <a href="https://x.com/3l4I5" target="_blank">🪿Twitter</a>
-        </p>
-        <p class="underline text-blue-600">
-          <a href="https://github.com/3l4l5" target="_blank">🐈GitHub</a>
-        </p>
-        <p class="underline text-blue-600">
-          <a href="https://speakerdeck.com/3l4l5" target="_blank"
-            >🪧Speaker Deck</a
-          >
-        </p>
+        <h1 class="text-3xl font-bold">オクラのホームページ</h1>
       </div>
-    </div>
-    <div class="pt-2">
-      <div>
-        <h2 class="text-xl font-bold">Blogs</h2>
+      <div class="pt-2">
+        <h2 class="text-xl font-bold">Profile</h2>
       </div>
-      <div class="pt-3">
-        {{ range .Articles}}
-        <div>
-          <div>{{ .Date }}</div>
-          <div class="underline text-blue-600">
-            <a href="{{ .Path }}">{{ .Title }}</a>
+      <div class="border rounded-md m-2 p-2">
+        <div class="flex flex-col sm:flex-row py-2">
+          <div class="p-4">
+            <img
+              class="w-24 h-24 rounded-full object-cover"
+              src="https://pbs.twimg.com/profile_images/2031758129734803456/IHBZ_mkL_400x400.jpg"
+            />
+          </div>
+          <div>
+            <p>なまえ: Ryusei Ohkura</p>
+            <p>お仕事: ソフトウェアエンジニア</p>
+            <p class="underline text-blue-600">
+              <a href="https://x.com/3l4I5" target="_blank">🪿Twitter</a>
+            </p>
+            <p class="underline text-blue-600">
+              <a href="https://github.com/3l4l5" target="_blank">🐈GitHub</a>
+            </p>
+            <p class="underline text-blue-600">
+              <a href="https://speakerdeck.com/3l4l5" target="_blank"
+                >🪧Speaker Deck</a
+              >
+            </p>
           </div>
         </div>
-        {{ end }}
+      </div>
+      <div class="pt-2">
+        <div>
+          <h2 class="text-xl font-bold">Blogs</h2>
+        </div>
+        <div class="pt-3">
+          {{ range .Articles}}
+          <div class="border rounded-md m-2 p-2">
+            <div class="text-zinc-600 text-xs">{{ .Date }}</div>
+            <div class="underline text-blue-600">
+              <a href="{{ .Path }}">{{ .Title }}</a>
+            </div>
+            <div class="text-sm">
+              {{range .Tags }}
+              <span class="inline-block bg-stale-100 rounded-md pr-1 mr-1 underline"># {{ . }}</span>
+              {{ end }}
+            </div>
+          </div>
+          {{ end }}
+        </div>
       </div>
     </div>
   </body>
